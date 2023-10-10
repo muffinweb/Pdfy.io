@@ -16,7 +16,8 @@ export default function Home() {
                   actionURL="/api/convert"
                   initialText="Choose HTML File"
                   setters={{
-                    setPreviewDom
+                      setPreviewDom,
+                      setResultPdf
                   }}
               />
           </div>
@@ -25,7 +26,9 @@ export default function Home() {
         <div className="w-full flex flex-row">
             <div dangerouslySetInnerHTML={{__html: previewDom}} className="w-1/2 h-[800px] border-black overflow-scroll"></div>
 
-            <div dangerouslySetInnerHTML={{__html: resultPdf}} className="w-1/2 h-[800px] border-black bg-gray-200"></div>
+            <div dangerouslySetInnerHTML={{__html: resultPdf}} className="w-1/2 h-[800px] border-black bg-gray-200">
+
+            </div>
         </div>
 
     </main>

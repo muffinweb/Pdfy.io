@@ -60,7 +60,7 @@ const DragNDrop = ({ actionURL, initialText, setters }) => {
             console.log('ii');
             console.log(res);
             if(res.data.isSuccess){
-                window.open(res.data.outputPath,true)
+                setters.setResultPdf(`<iframe class="w-full h-full" src="${res.data.outputPath}" />`)
             }
         })
     }
