@@ -5,8 +5,9 @@
  */
 }
 import {useEffect} from "react";
+import axios from "axios";
 
-const DragNDrop = ({ actionURL, initialText }) => {
+const DragNDrop = ({ actionURL, initialText, setters }) => {
 
     { /** When component loads, greencss should be recognized. */}
     useEffect(() => {
@@ -17,15 +18,12 @@ const DragNDrop = ({ actionURL, initialText }) => {
         event.preventDefault()
         event.stopPropagation()
         document.querySelector('.DragNDropLine').classList.add("border-green-600")
-        console.log('dr enter')
     }
 
     function OnDragLeaveAction(event){
         event.preventDefault()
         event.stopPropagation()
         document.querySelector('.DragNDropLine').classList.remove("border-green-600")
-
-        console.log('dr leave')
     }
 
     {
@@ -37,7 +35,6 @@ const DragNDrop = ({ actionURL, initialText }) => {
         //Default behavior disabling..
         event.preventDefault()
         event.stopPropagation()
-        console.log("dr drop")
     }
 
     function handleInputFile(event){
@@ -46,11 +43,26 @@ const DragNDrop = ({ actionURL, initialText }) => {
 
         //Handler
         fileReader.onload = (evt) => {
-            console.log(evt.target.result);
+            //Preview HTML FILE
+            setters.setPreviewDom(evt.target.result)
+
+            uploadFileToConvert(evt.target.result)
         }
 
         //Trigger
-        fileReader.readAsBinaryString(htmlFile)
+        fileReader.readAsText(htmlFile, 'utf8')
+    }
+
+    function uploadFileToConvert(htmlBinaryData){
+        axios.post(actionURL, {
+            htmlBinary:htmlBinaryData
+        }).then(res => {
+            console.log('ii');
+            console.log(res);
+            if(res.data.isSuccess){
+                window.open(res.data.outputPath,true)
+            }
+        })
     }
 
     return(

@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { html_to_pdf } = require("./../convert/convert-pack");
 
-async function convertHtmlToPdf(fullFileName){
+async function convertHtmlToPdf(fullFileNameWithPath, fileMeta){
 
     var convertionResult = await new Promise((resolve, reject) => {
         try {
@@ -27,7 +27,7 @@ async function convertHtmlToPdf(fullFileName){
                 };
         
                 const templateHtml = fs.readFileSync(
-                    path.join(process.cwd(), "./public/uploads/"+fullFileName),
+                    path.join(process.cwd(), fullFileNameWithPath),
                     "utf8"
                 );
         
@@ -39,14 +39,14 @@ async function convertHtmlToPdf(fullFileName){
                         left: "30px"
                     },
                     printBackground: true,
-                    path: "./public/outputs/" + fullFileName + "-toPdf.pdf",
+                    path: "./public/outputs/" + fileMeta.fileName + ".pdf",
                 };
         
                 await html_to_pdf({ templateHtml, dataBinding, options });
         
                 resolve({
                     isSuccess: true,
-                    outputPath: "/public/outputs/" + fullFileName + "-pdf.pdf",
+                    outputPath: "/outputs/" + fileMeta.fileName + ".pdf",
                     message: "Successfully converted"
                 });
 
