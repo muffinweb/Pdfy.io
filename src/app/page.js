@@ -24,7 +24,13 @@ export default function Home() {
         </div>
 
         <div className="w-full flex flex-row">
-            <div dangerouslySetInnerHTML={{__html: previewDom}} className="w-1/2 h-[800px] border-black overflow-scroll"></div>
+            <div className="w-1/2 h-[800px] border-black overflow-scroll">
+
+                {
+                    (previewDom.length > 0) && <iframe className="w-screen h-screen" srcDoc={previewDom} />
+                }
+
+            </div>
 
             <div dangerouslySetInnerHTML={{__html: resultPdf}} className="w-1/2 h-[800px] border-black bg-gray-200">
 

@@ -43,7 +43,8 @@ const DragNDrop = ({ actionURL, initialText, setters }) => {
 
         //Handler
         fileReader.onload = (evt) => {
-            //Preview HTML FILE
+
+            //Store HTML FILE and return preview data
             setters.setPreviewDom(evt.target.result)
 
             uploadFileToConvert(evt.target.result)
@@ -57,8 +58,6 @@ const DragNDrop = ({ actionURL, initialText, setters }) => {
         axios.post(actionURL, {
             htmlBinary:htmlBinaryData
         }).then(res => {
-            console.log('ii');
-            console.log(res);
             if(res.data.isSuccess){
                 setters.setResultPdf(`<iframe class="w-full h-full" src="${res.data.outputPath}" />`)
             }
