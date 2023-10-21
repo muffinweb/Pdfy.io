@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { convertHtmlToPdf } from "../function-hooks/html-to-pdf-hook";
 import * as fs from 'node:fs/promises';
+import path from "path"
 
 //UUID Generator
 function uuidv4() {
@@ -35,7 +36,7 @@ export async function POST(request, response){
    }
 
    //Move uploaded file
-   await fs.writeFile(generatedFileNamePathed, htmlBinary);
+   await fs.writeFile(path.join(process.cwd(), generatedFileNamePathed), htmlBinary);
 
 
     var processInfo = await convertHtmlToPdf(generatedFileNamePathed, fileMeta)
