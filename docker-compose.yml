@@ -1,0 +1,9 @@
+version: '3'
+services:
+  pdfy:
+    container_name: pdfy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8083:3000"
