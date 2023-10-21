@@ -25,7 +25,7 @@ export async function POST(request, response){
    //Create file randomName.extension
    const generatedFileName = randomName + "." + ext;
 
-   const generatedFileNamePathed = "./public/uploads/" + generatedFileName;
+   const generatedFileNamePathed = "public/uploads/" + generatedFileName;
 
    const fileMeta = {
        ext: ext,
