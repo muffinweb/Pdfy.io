@@ -39,7 +39,7 @@ async function convertHtmlToPdf(fullFileNameWithPath, fileMeta){
                         left: "30px"
                     },
                     printBackground: true,
-                    path: "./public/outputs/" + fileMeta.fileName + ".pdf",
+                    path: process.cwd() + "/public/outputs/" + fileMeta.fileName + ".pdf",
                 };
         
                 await html_to_pdf({ templateHtml, dataBinding, options });
