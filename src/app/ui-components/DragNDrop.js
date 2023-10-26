@@ -42,7 +42,7 @@ const DragNDrop = ({ actionURL, initialText, setters }) => {
         const fileReader = new FileReader()
 
         //Handler
-        fileReader.onload = (evt) => {
+        fileReader.onload = async (evt) => {
 
             //Store HTML FILE and return preview data
             setters.setPreviewDom(evt.target.result)
@@ -57,6 +57,8 @@ const DragNDrop = ({ actionURL, initialText, setters }) => {
     function uploadFileToConvert(htmlBinaryData){
         axios.post(actionURL, {
             htmlBinary:htmlBinaryData
+        }, {
+            headers: { "Content-Type": "multipart/form-data" },
         }).then(res => {
             if(res.data.isSuccess){
                 setters.setResultPdf(`<iframe class="w-full h-full" src="${res.data.outputPath}" />`)

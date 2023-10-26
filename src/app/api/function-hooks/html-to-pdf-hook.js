@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const { html_to_pdf } = require("./../convert/convert-pack");
+const { html_to_pdf } = require("../convert/convert-pack");
 
-async function convertHtmlToPdf(fullFileNameWithPath, fileMeta){
+async function  convertHtmlToPdf(fullFileNameWithPath, fileMeta){
 
     var convertionResult = await new Promise((resolve, reject) => {
         try {
@@ -27,7 +27,7 @@ async function convertHtmlToPdf(fullFileNameWithPath, fileMeta){
                 };
         
                 const templateHtml = fs.readFileSync(
-                    path.join(process.cwd(), fullFileNameWithPath),
+                    path.join(fullFileNameWithPath),
                     "utf8"
                 );
         
@@ -46,7 +46,7 @@ async function convertHtmlToPdf(fullFileNameWithPath, fileMeta){
         
                 resolve({
                     isSuccess: true,
-                    outputPath: "/outputs/" + fileMeta.fileName + ".pdf",
+                    outputPath: "http://localhost:3000/outputs/" + fileMeta.fileName + ".pdf",
                     message: "Successfully converted"
                 });
 

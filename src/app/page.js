@@ -13,7 +13,7 @@ export default function Home() {
         <div className="w-full h-[112px] bg-blue-800">
           <div className="w-56 h-24 border border-black ml-3 mt-3 p-5">
               <DragNDrop
-                  actionURL="/api/convert"
+                  actionURL="http://localhost:3000/api/convert"
                   initialText="Choose HTML File"
                   setters={{
                       setPreviewDom,

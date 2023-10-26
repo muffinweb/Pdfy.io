@@ -6,4 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8083:3000"
+      - "3000:3000"
+    volumes:
+      - "./public:/public"
+      - "./.next:/.next"

@@ -1,15 +1,11 @@
 FROM node:16
 
-WORKDIR /pdfy
-
-COPY package.json /pdfy/
+COPY package.json .
 
 RUN npm install
 
-COPY . /pdfy/
+COPY . .
 
 EXPOSE 3000
 
-RUN npm run build
-
-CMD [ "npm", "run", "start"]
+CMD [ "npm", "run", "dev"]

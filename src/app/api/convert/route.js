@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { convertHtmlToPdf } from "../function-hooks/html-to-pdf-hook";
-import * as fs from 'node:fs/promises';
+import * as fs from "node:fs";
 import path from "path"
 
 //UUID Generator
@@ -17,17 +17,25 @@ function uuidv4() {
 
 export async function POST(request, response){
 
-    //Get HTML Binary from request
-   const { htmlBinary } = await request.json();
+    //Get Form Data FROM Request 
+    const requestFormData = await request.formData();
 
-   const randomName = uuidv4();
-   const ext = "html";
+    //Get htmlBinary prop from FormData
+    const htmlBinary = requestFormData.get('htmlBinary');
 
-   //Create file randomName.extension
-   const generatedFileName = randomName + "." + ext;
+    //Generate UUID
+    const randomName = uuidv4();
 
-   const generatedFileNamePathed = "public/uploads/" + generatedFileName;
+    //File Extension
+    const ext = "html";
 
+    //Create file randomName.extension
+    const generatedFileName = randomName + "." + ext;
+
+    //Generated FullPath
+    const generatedFileNamePathed = process.cwd() + "/public/uploads/" + generatedFileName;
+
+   //Payload of required parts of data
    const fileMeta = {
        ext: ext,
        fileName: randomName,
@@ -35,11 +43,10 @@ export async function POST(request, response){
        fullPath: generatedFileNamePathed
    }
 
-   //Move uploaded file
-   await fs.writeFile(path.join(process.cwd(), generatedFileNamePathed), htmlBinary);
+    // Move uploaded file
+    await fs.writeFileSync(fileMeta.fullPath, htmlBinary);
 
-
+ 
     var processInfo = await convertHtmlToPdf(generatedFileNamePathed, fileMeta)
-    
     return NextResponse.json(processInfo)
 }
